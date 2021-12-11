@@ -2,11 +2,12 @@ import { initializeApp } from 'firebase/app'
 import {
   getFirestore,
   collection,
-  getDocs
+  getDocs,
+  addDoc
 } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: process.env.APIKEY,
+  apiKey: "AIzaSyBiKVbZyG2Iqqq6vzmbb6gk9oCpk2diCyE",
   authDomain: "fir-9-7fca0.firebaseapp.com",
   projectId: "fir-9-7fca0",
   storageBucket: "fir-9-7fca0.appspot.com",
@@ -31,3 +32,28 @@ getDocs(colRef)
   .catch(err => {
     console.log(err.message);
   })
+
+const addBookForm = document.querySelector('.add')
+addBookForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  addDoc(colRef, {
+    title: addBookForm.title.value,
+    author: addBookForm.author.value,
+  })
+  .then(() => {
+    addBookForm.reset()
+  })
+})
+
+const deleteBookForm = document.querySelector('.delete')
+deleteBookForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  const docRef = doc(db, 'books', deleteBookForm.id.value)
+
+  deleteDoc(docRef)
+    .then(() => {
+      deleteBookForm.reset()
+    })
+})
