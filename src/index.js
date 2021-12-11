@@ -15,7 +15,10 @@ import {
 } from 'firebase/firestore'
 import {
   getAuth,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
 } from 'firebase/auth'
 
 const firebaseConfig = {
