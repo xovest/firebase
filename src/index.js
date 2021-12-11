@@ -7,7 +7,9 @@ import {
   deleteDoc,
   doc,
   query,
-  where
+  where,
+  orderBy,
+  serverTimestamp
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -25,7 +27,7 @@ const db = getFirestore()
 
 const colRef = collection(db, 'books')
 
-const q = query(colRef, where("author", "==", "Mason Clerk"))
+const q = query(colRef, orderBy('createdAt'))
   
 onSnapshot(q, (snapshot) => {
   let books = []
@@ -42,6 +44,7 @@ addBookForm.addEventListener('submit', (e) => {
   addDoc(colRef, {
     title: addBookForm.title.value,
     author: addBookForm.author.value,
+    createdAt: serverTimestamp(),
   })
   .then(() => {
     addBookForm.reset()
