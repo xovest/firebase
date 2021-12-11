@@ -19,7 +19,7 @@ import {
 } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBiKVbZyG2Iqqq6vzmbb6gk9oCpk2diCyE",
+  apiKey: process.env.APIKEY,
   authDomain: "fir-9-7fca0.firebaseapp.com",
   projectId: "fir-9-7fca0",
   storageBucket: "fir-9-7fca0.appspot.com",
@@ -138,4 +138,16 @@ loginForm.addEventListener('submit', (e) => {
     .catch(err => {
       console.log(err.message)
     })
+})
+
+const unsubAuth = onAuthStateChanged(auth, (user) => {
+  console.log('user status changed:', user)
+})
+
+const unsubButton = document.querySelector('.unsub')
+unsubButton.addEventListener('click', () => {
+  console.log('unsubscribing')
+  unsubCol()
+  unsubDoc()
+  unsubAuth()
 })
