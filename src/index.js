@@ -9,7 +9,8 @@ import {
   query,
   where,
   orderBy,
-  serverTimestamp
+  serverTimestamp,
+  getDoc
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -61,4 +62,10 @@ deleteBookForm.addEventListener('submit', (e) => {
     .then(() => {
       deleteBookForm.reset()
     })
+})
+
+const docRef = doc(db, 'books', 'R8oRblx9AAywhrOgeSOl')
+
+onSnapshot(docRef, (doc) => {
+  console.log(doc.data(), doc.id);
 })
